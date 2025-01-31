@@ -209,7 +209,7 @@
     // If not sorted, shuffle the array
     if (!isSorted()) {
       for (i = k = 0, ref = colours.length; (0 <= ref ? k < ref : k > ref); i = 0 <= ref ? ++k : --k) {
-        j = Math.floor(Math.random() * colours.length);
+        j = i + Math.floor(Math.random() * (colours.length - i));
         swapRects(i, j);
       }
     }

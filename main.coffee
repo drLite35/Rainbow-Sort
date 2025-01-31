@@ -164,7 +164,7 @@ bogoSort = ->
         # If not sorted, shuffle the array
         if not isSorted()
                 for i in [0...colours.length]
-                    j = Math.floor(Math.random() * colours.length)
+                    j = i+ Math.floor(Math.random() * (colours.length - i))
                     swapRects(i, j)
 
         sort_context.count++
