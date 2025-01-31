@@ -147,6 +147,33 @@ bsort = ->
         else
                 bsort()
 
+# Bogo Sort
+bogoSort = ->
+        sort_context ?=
+                count: 0
+
+        { count } = sort_context
+
+        # Check if the array is sorted
+        isSorted = ->
+                for i in [1...colours.length]
+                    if colours[i - 1].val > colours[i].val
+                                return false
+                return true
+
+        # If not sorted, shuffle the array
+        if not isSorted()
+                for i in [0...colours.length]
+                    j = Math.floor(Math.random() * colours.length)
+                    swapRects(i, j)
+
+        sort_context.count++
+
+        if (sort_context.count % UPDATE_INTERVAL) == 0
+                defer(bogoSort)
+        else
+                bogoSort()
+
 qsort = (tukey) ->
         sort_context ?=
                 median_stack: []
@@ -389,6 +416,9 @@ $(document).ready(->
                         when 'hsort'
                                 rectWidth = 10
                                 sort = hsort
+                        when 'bogoSort'
+                                rectWidth = 32
+                                sort = bogoSort
 
                 rectHeight = rectWidth
                 $('#squareSize').val(rectWidth)
